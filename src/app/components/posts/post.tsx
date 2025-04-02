@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./post.module.css";
+import { spawn } from "child_process";
 
 // Post tipi
 type PostType = {
     _id: string;
     title: string;
     updatedAt: string;
+    createdAt: string;
     description: string;
 };
 
@@ -50,6 +52,8 @@ export default async function Post() {
                             <h4 className={styles.postAuth}>@sezerskr</h4>
                             <span>/</span>
                             <h4 className={styles.postDate}>{t.updatedAt}</h4>
+                            {t.createdAt === t.updatedAt ? (<span></span>) : ( <span className={styles.postUpdated}>/</span>)}
+                            {t.createdAt === t.updatedAt ? (<span></span>) : ( <span className={styles.postUpdated}>düzenlenmiş, eski tarih: {t.createdAt}</span>)}
                         </div>
                         <div className={styles.postInfo}>
                             <h2>{t.title}</h2>

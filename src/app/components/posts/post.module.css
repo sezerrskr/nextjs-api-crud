@@ -36,3 +36,10 @@
     align-items: center;
     justify-content: center;
 }
+
+.postUpdated {
+    font-weight: 400;
+    color: var(softTextColor);
+    align-items: center;
+    justify-content: center;
+}
