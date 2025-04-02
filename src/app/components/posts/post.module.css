@@ -1,0 +1,38 @@
+.container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    background-color: var(--textColor);
+    color: var(--bg);
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 1rem;
+}
+
+.postInfo {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+
+.postDate {
+    font-weight: 400;
+    color: var(softTextColor);
+    align-items: center;
+    justify-content: center;
+}
+
+.postAuth {
+    font-weight: 400;
+    color: var(softTextColor);
+    align-items: center;
+    justify-content: center;
+}
