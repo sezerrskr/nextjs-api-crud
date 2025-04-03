@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./post.module.css";
-import { spawn } from "child_process";
+import Link from "next/link";
+import DeletePostFarm from "../deletePostFarm";
 
 // Post tipi
 type PostType = {
@@ -35,6 +36,16 @@ const getPosts = async (): Promise<PostType[]> => {
     }
 };
 
+// Tarih formatlama fonksiyonu
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+    const year = date.getFullYear();
+
+    return `${day}.${month}.${year}`;
+};
+
 // Post bileşeni
 export default async function Post() {
     const posts: PostType[] = await getPosts(); // Doğrudan diziyi al
@@ -51,9 +62,25 @@ export default async function Post() {
                         <div className={styles.postInfo}>
                             <h4 className={styles.postAuth}>@sezerskr</h4>
                             <span>/</span>
-                            <h4 className={styles.postDate}>{t.updatedAt}</h4>
-                            {t.createdAt === t.updatedAt ? (<span></span>) : ( <span className={styles.postUpdated}>/</span>)}
-                            {t.createdAt === t.updatedAt ? (<span></span>) : ( <span className={styles.postUpdated}>düzenlenmiş, eski tarih: {t.createdAt}</span>)}
+                            <h4 className={styles.postDate}>{formatDate(t.createdAt)}</h4>
+                            {t.createdAt === t.updatedAt ? (
+                                <></>
+                            ) : (
+                                <span className={styles.postUpdated}>/</span>
+                            )}
+                            {t.createdAt === t.updatedAt ? (
+                                <></>
+                            ) : (
+                                <span className={styles.postUpdated}>
+                                    {formatDate(t.updatedAt)} tarihinde düzenlenmiş.
+                                </span>
+                            )}
+                            <span>/</span>
+                            <div className={styles.postSettings}>
+                                <Link href={`/editPost/${t._id}`} className={styles.postEdit}>Düzenle </Link>
+                                <span>/</span>
+                                <DeletePostFarm id={t._id} /> 
+                            </div>
                         </div>
                         <div className={styles.postInfo}>
                             <h2>{t.title}</h2>
